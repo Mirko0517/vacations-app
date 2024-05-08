@@ -1,0 +1,7 @@
+{
+  "name": "vacations-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

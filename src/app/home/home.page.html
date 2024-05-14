@@ -1,20 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Destinos Vacacionales</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-searchbar
+    [debounce]="2000"
+    (ionInput)="handleInput($event)">
+</ion-searchbar>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-list *ngIf="searchResults.length > 0">
+    <ion-item *ngFor="let result of searchResults">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <ion-thumbnail>
+              <img [src]="result.image" alt="" />
+            </ion-thumbnail>
+          </ion-col>
+          <ion-col size="6">
+            <ion-label>
+              <h2>{{ result.name }}</h2>
+              <p>{{ result.address.country }}</p>
+            </ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button (click)="addDestination(result)">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="searchPerformed && searchResults.length === 0">
+    <p>No se encontraron resultados para tu búsqueda.</p>
+  </ion-text>
+
+    <ion-list>
+        <ion-item *ngFor="let destination of destinations">
+            <ion-thumbnail slot="start">
+                <img [src]="destination.photoUrl" alt=""/>
+            </ion-thumbnail>
+            <ion-label>
+                <h2>{{ destination.name }}</h2>
+                <p>{{ destination.country }}</p>
+            </ion-label>
+            <ion-button (click)="openDestinationDetailModal(destination)">
+                <ion-icon name="airplane-outline"></ion-icon>
+                {{ destination.price | currency }}
+            </ion-button>
+            <ion-button (click)="takePicture(destination)">
+                <ion-icon name="camera-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="confirmDeleteDestination(destination)">
+                <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openDestinationDetailModal()">
+            <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
+
+<ion-button (click)="openPriceModal()">Ingresar valor del vuelo</ion-button>

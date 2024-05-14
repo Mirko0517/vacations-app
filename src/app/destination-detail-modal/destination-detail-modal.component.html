@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title
+            >{{ destination ? 'Editar Destino' : 'Nuevo Destino' }}</ion-title
+        >
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">Cerrar</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="destinationData.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">País</ion-label>
+        <ion-input [(ngModel)]="destinationData.country"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input
+            type="number"
+            [(ngModel)]="destinationData.price"
+        ></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="saveDestination()">Guardar</ion-button>
+</ion-content>

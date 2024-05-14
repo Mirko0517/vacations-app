@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Valor vuelo ida y vuelta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Valor del vuelo ida y vuelta en USD</ion-label>
+    <ion-input type="number" [(ngModel)]="flightPrice"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="confirmPrice()">CONFIRMAR</ion-button>
+</ion-content>
